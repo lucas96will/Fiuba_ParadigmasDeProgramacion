@@ -13,4 +13,30 @@ este descuento es sobre el precio del producto y no se acumula a otros descuento
 
 - Realizar el diagrama de clases correspondiente, detallando los métodos y atributos más importantes.
 - Realizar un diagrama de secuencia sobre la obtención de la suma de los importes a cobrarles a los clientes
-  registrados, para un mes determinado. 
+  registrados, para un mes determinado.
+
+## Analizando el problema por primera vez
+
+### Entidades
+
+- Libreria
+- Cliente
+- Productos (Libros, ArticulosDeLibreria, Revistas, Periodicos)
+
+### Diseño por contrato (estas dos prueba van a estar como casos de uso)
+
+- El kiosco necesita como funcionalidad saber para un determinado mes cuánto debe cobrarle a cada cliente
+- idem pero un año
+
+### Extras
+
+- ArticulosDeLibreria tiene iva 21%
+- revistas y periodicos tiene 20% descuento si se subscribe 12 meses
+- los clientes registrados tienen 5% descuento -> se debe poder registrar un cliente
+- a los clientes se les cobra a fin de mes por su cuenta corriente
+
+### Algunas decisiones de diseño
+
+- el stock de la libreria es infinito (imposible de probar)
+- la libreria tiene todo lo que vos quieras (imposible de probar)
+- Luego vamos a cambiar esto
