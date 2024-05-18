@@ -21,7 +21,10 @@ este descuento es sobre el precio del producto y no se acumula a otros descuento
 
 - Libreria
 - Cliente
-- Productos (Libros, ArticulosDeLibreria, Revistas, Periodicos)
+- Productos (Libros, ArticulosDeLibreria)
+- Subscripcion (Revistas, Periodicos)
+- Cuenta Corriente (donde aparecen lo que uno compra, subscripciones y esto ordenado por mes)
+- Compra (lo que un cliente compra o subscribe)
 
 ### Diseño por contrato (estas dos prueba van a estar como casos de uso)
 

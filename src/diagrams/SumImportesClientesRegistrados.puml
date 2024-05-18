@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor testCase
+participant ":Libreria"
+
+
+
+testCase -> ":Libreria": importeTotalClientesRegistrados("mayo")
+loop todos los clientes
+":Libreria" -> ":ClienteRegistrado": obtenerGastoTotal("mayo")
+":ClienteRegistrado" -> ":CuentaCorriente" : obtenerGastoEn("mayo")
+loop para todas las compras del mes
+":CuentaCorriente" -> ":Compra" : obtenerGasto()
+":Compra" -> "Producto" : obtenerPrecio()
+note right
+    El producto
+    realiza la
+    logica del
+    precio
+end note
+":Compra" <-- "Producto" : precio
+":Compra" --> ":CuentaCorriente" : [totalMesCliente += precio]
+end
+
+":CuentaCorriente" --> ":ClienteRegistrado": totalMesCliente
+
+":Libreria" <-- ":ClienteRegistrado": [total += totalMesCliente]
+end
+testCase <-- ":Libreria": total
+@enduml

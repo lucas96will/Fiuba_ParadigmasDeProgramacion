@@ -1,0 +1,70 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Liberia {
+ +importeTotalClientesRegistrados(mes: String) : double
+}
+
+Abstract Cliente {
+# nombre: String
+# dir : String
++Cliente(nombre: String, dir: String)
++{abstract}obtenerGastoTotal(mes: String) : double
+}
+
+class ClienteRegistrado {
++obtenerGastoTotal(mes: String) : double
+}
+
+class ClienteNoRegistrado {
++obtenerGastoTotal(mes: String) : double
+}
+
+
+class CuentaCorriente {
++ obtenerGasto(mes: String) : double
+}
+
+interface Producto {
++obtenerPrecio(): double
+}
+
+class Compra {
+- fecha : String
++ Compra(fecha: String)
++ obtenerGasto() : double
+}
+
+class Libro{
++Libro()
++obtenerPrecio(): double
+}
+class ArticuloDeLibreria{
++ArticuloDeLibreria()
++obtenerPrecio(): double
+}
+class Revista{
++Revista()
++obtenerPrecio(): double
+}
+class Periodico{
++Periodico()
++obtenerPrecio(): double
+}
+
+Liberia "1" --> "*" Cliente
+Cliente <|-- ClienteRegistrado
+Cliente <|-- ClienteNoRegistrado
+
+Cliente "1" --> "1" CuentaCorriente
+
+CuentaCorriente "1" --> "*" Compra
+Compra "1" --> "1" Producto
+
+Producto <|.. Libro
+Producto <|.. ArticuloDeLibreria
+Producto <|.. Revista
+Producto <|.. Periodico
+
+@enduml
