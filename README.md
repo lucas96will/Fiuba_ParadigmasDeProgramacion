@@ -40,7 +40,6 @@ este descuento es sobre el precio del producto y no se acumula a otros descuento
 
 ### Algunas decisiones de diseño
 
-- el stock de la libreria es infinito (imposible de probar)
 - el cliente no tiene estado registrado o no debido a que la libreria sabe eso
   - esto nos lleva a tener un mecanismo de alta / baja
 - el ejercicio solo pide conseguir el importe de los clientes, es decir ya se compraron los productos -no haria falta
