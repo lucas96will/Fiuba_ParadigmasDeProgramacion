@@ -1,4 +1,4 @@
-@startuml
+@startuml diagramasecuencia1
 'https://plantuml.com/sequence-diagram
 
 title LibreriaObtieneImporteDeTodosLosClientesRegistrados

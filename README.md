@@ -50,3 +50,11 @@ este descuento es sobre el precio del producto y no se acumula a otros descuento
   - las subscripciones por menos de 12 meses pueden tener descuento de cliente registrado.
 - Excepciones
   - No agregue excepciones, pero deberia haber bastantes en la creacion de los productos
+
+### Diagrama de clases
+
+<a target="blank"><img align="center" src="src/diagrams/diagramaclases.png"  /></a>
+
+### Diagrama de secuencia
+
+<a target="blank"><img align="center" src="src/diagrams/diagramasecuencia1.png" /></a>
