@@ -1,17 +1,20 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title LibreriaObtieneImporteDeTodosLosClientesRegistrados
+
 actor testCase
 participant ":Libreria"
 
-
-
-testCase -> ":Libreria": importeTotalClientesRegistrados("mayo")
+testCase -> ":Libreria": importeTotalClientesRegistradosEnMes("mayo")
 loop todos los clientes
-":Libreria" -> ":ClienteRegistrado": obtenerGastoTotal("mayo")
-":ClienteRegistrado" -> ":CuentaCorriente" : obtenerGastoEn("mayo")
+":Libreria" -> ":Cliente": obtenerGastoTotal("mayo")
+":Cliente" -> ":CuentaCorriente" : obtenerGastoEntreFechas("mayo", "junio")
 loop para todas las compras del mes
-":CuentaCorriente" -> ":Compra" : obtenerGasto()
+":CuentaCorriente" -> ":Compra" : fechaCoincideEntre("mayo", "junio")
+":CuentaCorriente" <-- ":Compra" : coincide
+alt coincide = true
+":CuentaCorriente" -> ":Compra" : obtenerPrecio()
 ":Compra" -> "Producto" : obtenerPrecio()
 note right
     El producto
@@ -20,12 +23,13 @@ note right
     precio
 end note
 ":Compra" <-- "Producto" : precio
-":Compra" --> ":CuentaCorriente" : [totalMesCliente += precio]
+":Compra" --> ":CuentaCorriente" : [totalCliente += precio]
+end
 end
 
-":CuentaCorriente" --> ":ClienteRegistrado": totalMesCliente
+":CuentaCorriente" --> ":Cliente": totalCliente
 
-":Libreria" <-- ":ClienteRegistrado": [total += totalMesCliente]
+":Libreria" <-- ":Cliente": [total += totalCliente]
 end
 testCase <-- ":Libreria": total
 @enduml

@@ -2,66 +2,88 @@
 'https://plantuml.com/class-diagram
 
 
-class Liberia {
- +importeTotalClientesRegistrados(mes: String) : double
+class Libreria {
+ +importeTotalClientesRegistrados(mes: LocalDate) : double
+ importeTotalClientesRegistradosEnAnio(anio: LocalDate) : double
+ +registrarCliente(unCliente : Cliente)
+ +clienteCompra(c : Cliente, fecha: LocalDate, productos: List<Producto>)
 }
 
-Abstract Cliente {
+Class Cliente {
 # nombre: String
 # dir : String
 +Cliente(nombre: String, dir: String)
-+{abstract}obtenerGastoTotal(mes: String) : double
++comprar(prod: Producto, fecha: LocalDate)
++obtenerGastoTotal(inicio: LocalDate, fin: LocalDate) : double
++equals(obj: Object):boolean
 }
 
-class ClienteRegistrado {
-+obtenerGastoTotal(mes: String) : double
-}
 
-class ClienteNoRegistrado {
-+obtenerGastoTotal(mes: String) : double
+class Descuento {
++Descuento(descuento : double)
++aplicar(unPrecio : double) : Double
 }
-
 
 class CuentaCorriente {
-+ obtenerGasto(mes: String) : double
+- compras: List<Producto>
++ comprar(prod: Producto, fecha: LocalDate)
++ obtenerGastoEntreFechas(inicio: LocalDate, fin: LocalDate) : double
 }
 
 interface Producto {
 +obtenerPrecio(): double
++aplicarDescuento(desc : Descuento) : Producto
 }
 
 class Compra {
-- fecha : String
-+ Compra(fecha: String)
-+ obtenerGasto() : double
+- fecha: LocalDate
+- producto: Producto
++ Compra(fecha: LocalDate)
++ obtenerPrecio(): double
++fechaCoincideEntre(inicio: LocalDate, fin: LocalDate): boolean
 }
 
 class Libro{
-+Libro()
+-precio : double
++Libro(precio: double)
 +obtenerPrecio(): double
++aplicarDescuento(desc : Descuento) : Producto
 }
 class ArticuloDeLibreria{
-+ArticuloDeLibreria()
+-precio : double
++ArticuloDeLibreria(precio: double)
 +obtenerPrecio(): double
-}
-class Revista{
-+Revista()
-+obtenerPrecio(): double
-}
-class Periodico{
-+Periodico()
-+obtenerPrecio(): double
++aplicarDescuento(desc : Descuento) : Producto
 }
 
-Liberia "1" --> "*" Cliente
-Cliente <|-- ClienteRegistrado
-Cliente <|-- ClienteNoRegistrado
+class Revista{
+-precio : double
+-periocidad : int
+-meses : int
++Revista(precio: double, periocidad: int, duracionSubscribcionMeses: int)
++obtenerPrecio(): double
++aplicarDescuento(desc : Descuento) : Producto
+}
+class Periodico{
+-precio : double
+-periocidad : int
+-meses : int
++Periodico(precio: double, periocidad: int, duracionSubscribcionMeses: int)
++obtenerPrecio(): double
++aplicarDescuento(desc : Descuento) : Producto
+}
+
+Libreria "1" --> "*" Cliente
+Libreria ..> Descuento
+Libreria ..> Producto
+
 
 Cliente "1" --> "1" CuentaCorriente
 
 CuentaCorriente "1" --> "*" Compra
 Compra "1" --> "1" Producto
 
+Producto ..> Descuento
 Producto <|.. Libro
 Producto <|.. ArticuloDeLibreria
 Producto <|.. Revista

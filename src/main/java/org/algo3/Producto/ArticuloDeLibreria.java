@@ -2,23 +2,21 @@ package org.algo3.Producto;
 
 import org.algo3.Libreria.Descuento;
 
-public class Libro implements Producto {
+public class ArticuloDeLibreria implements Producto {
+    private final double IVA = 0.21;
+    private double precio;
 
-    private final double precio;
-
-    public Libro(double unPrecio) {
+    public ArticuloDeLibreria(double unPrecio) {
         precio = unPrecio;
     }
 
     @Override
     public double obtenerPrecio() {
-        return precio;
+        return precio * (1 + IVA);
     }
 
     @Override
     public Producto aplicarDescuento(Descuento unDescuento) {
         return new Libro(unDescuento.aplicar(precio));
     }
-
-
 }

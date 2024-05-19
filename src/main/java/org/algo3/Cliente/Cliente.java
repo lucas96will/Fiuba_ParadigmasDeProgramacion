@@ -3,7 +3,9 @@ package org.algo3.Cliente;
 import org.algo3.CuentaCorriente.CuentaCorriente;
 import org.algo3.Producto.Producto;
 
-public abstract class Cliente {
+import java.time.LocalDate;
+
+public class Cliente {
     protected String nombre;
     protected String dir;
     protected CuentaCorriente cuenta;
@@ -14,10 +16,13 @@ public abstract class Cliente {
         cuenta = new CuentaCorriente();
     }
 
-    abstract public void comprar(Producto unProducto, String mes);
+    public void comprar(Producto unProducto, LocalDate unaFecha) {
+        cuenta.comprar(unProducto, unaFecha);
+    }
 
-    public double obtenerGastoTotal(String mes) {
-        return cuenta.obtenerGasto(mes);
+    public double obtenerGastoTotal(LocalDate inicio, LocalDate fin) {
+
+        return cuenta.obtenerGastoEntreFechas(inicio, fin);
     }
 
     @Override

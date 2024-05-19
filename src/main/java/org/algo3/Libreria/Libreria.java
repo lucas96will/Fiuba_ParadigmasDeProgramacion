@@ -3,35 +3,44 @@ package org.algo3.Libreria;
 import org.algo3.Cliente.Cliente;
 import org.algo3.Producto.Producto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Libreria {
 
-    private final List<Cliente> clientes;
+public class Libreria {
+    private static double DESCUENTO_CLIENTES = 0.05;
+    private final List<Cliente> clientesRegistrados;
 
     public Libreria() {
-        clientes = new ArrayList<Cliente>();
+        clientesRegistrados = new ArrayList<>();
     }
 
-    public double importeTotalClientesRegistrados(String fecha) {
-        double sum = 0;
-        for (Cliente c : clientes) {
-            sum += c.obtenerGastoTotal(fecha);
-        }
-        return sum;
+    public double importeTotalClientesRegistradosEnMes(LocalDate unMes) {
+        LocalDate inicio = LocalDate.of(unMes.getYear(), unMes.getMonth(), 1);
+        LocalDate fin = LocalDate.of(unMes.getYear(), unMes.getMonthValue() + 1, 1);
+
+        return clientesRegistrados.stream().mapToDouble(c -> c.obtenerGastoTotal(inicio, fin)).sum();
     }
 
     public void registrarCliente(Cliente unCliente) {
-        clientes.add(unCliente);
+        clientesRegistrados.add(unCliente);
     }
 
 
-    public void clienteCompra(Cliente unCliente, String mes, Producto unProducto) {
-        if (clientes.contains(unCliente)) {
-            unCliente.comprar(DescuentoClienteRegistrado.aplicar(unProducto), mes);
-            return;
+    public void clienteCompra(Cliente unCliente, LocalDate unMes, Producto... productos) {
+        for (Producto unProducto : productos) {
+            if (clientesRegistrados.contains(unCliente)) {
+                unCliente.comprar(unProducto.aplicarDescuento(new Descuento(DESCUENTO_CLIENTES)), unMes);
+                continue;
+            }
+            unCliente.comprar(unProducto, unMes);
         }
-        unCliente.comprar(unProducto, mes);
+    }
+
+    public double importeTotalClientesRegistradosEnAnio(LocalDate anio) {
+        LocalDate inicio = LocalDate.of(anio.getYear(), 1, 1);
+        LocalDate fin = LocalDate.of(anio.getYear() + 1, 1, 1);
+        return clientesRegistrados.stream().mapToDouble(c -> c.obtenerGastoTotal(inicio, fin)).sum();
     }
 }
