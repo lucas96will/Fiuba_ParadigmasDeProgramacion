@@ -65,4 +65,18 @@ No se que es mejor, si cada vez que se agrega una tarjeta se tenga que agregar u
 
 ### Diagrama de clases
 
+<img src="src/diagrams/DC.png" alt="">
+
 ### Diagrama de secuencia
+
+#### Compra de 2 entradas B con tarjeta PertenenciaH recibe las 2
+
+<img src="src/diagrams/2EntradasBPertenenciaH.png" alt="">
+
+#### Compra dee 2 entradas A con tarjeta Gold recibe solo 1
+
+<img src="src/diagrams/2EntradasAGold.png" alt="">
+
+#### Compra de 2 entradas A 2 entradas B PertenenciaH recibe las 4
+
+<img src="src/diagrams/2EntradasA2EntradasBPertenencia.png" alt="">

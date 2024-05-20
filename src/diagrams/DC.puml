@@ -1,0 +1,52 @@
+@startuml
+interface .Tarjeta {
+~ List<Entrada> comprar(List<Entrada>)
+~ void actualizarLimite(int)
+}
+
+class EntradaB {
+- int precio
++ Entrada comprar(Gold)
++ Entrada comprar(PertenenciaH)
++ boolean equals(Object)
+}
+
+
+interface Entrada {
+~ Entrada comprar(Gold)
+~ Entrada comprar(PertenenciaH)
+}
+
+class Plataforma {
++ List<Entrada> comprar(Tarjeta,List<Entrada>)
+}
+
+class EntradaA {
+- int precio
++ Entrada comprar(Gold)
++ Entrada comprar(PertenenciaH)
++ boolean equals(Object)
+}
+
+
+class Gold {
+- int limite
++ List<Entrada> comprar(List<Entrada>)
+- List<Entrada> eliminarEntradasNoDisponibles(List<Entrada>)
++ void actualizarLimite(int)
+}
+
+
+class PertenenciaH {
++ List<Entrada> comprar(List<Entrada>)
++ void actualizarLimite(int)
+}
+
+Plataforma ..> Tarjeta
+Plataforma ..> Entrada
+Entrada . Tarjeta
+Entrada <|.. EntradaB
+Entrada <|.. EntradaA
+Tarjeta <|.. Gold
+Tarjeta <|.. PertenenciaH
+@enduml

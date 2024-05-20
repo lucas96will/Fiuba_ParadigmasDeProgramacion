@@ -1,0 +1,25 @@
+@startuml
+
+actor main
+participant ":Plataforma" as plat
+participant "t:Gold" as t
+participant ":EntradaA" as entrada
+
+main -> plat : comprar(t, entradasAComprar)
+plat -> t : comprar(entradasAComprar)
+
+loop por cada entrada en entradasAComprar
+t -> entrada : comprar()
+entrada ->  "nuevaEntrada:EntradaA" **: <<create>>
+entrada -> t : actualizarLimite(precio)
+t --> t : limite -= precio
+entrada --> t : nuevaEntrada
+alt limite >= 0
+t --> t : entradasCompradas.add(nuevaEntrada)
+end alt
+end
+t --> t : eliminarEntradasNoDisponibles(entradasCompradas)
+t --> plat : entradasCompradas
+plat --> main : entradasCompradas
+
+@enduml

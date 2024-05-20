@@ -21,11 +21,11 @@ public class Gold implements Tarjeta {
                 entradasConseguidas.add(entradaComprada);
             }
         }
-        entradasConseguidas = eliminarEntradasNoPagadas(entradasConseguidas);
+        entradasConseguidas = eliminarEntradasNoDisponibles(entradasConseguidas);
         return entradasConseguidas;
     }
 
-    private List<Entrada> eliminarEntradasNoPagadas(List<Entrada> entradasConseguidas) {
+    private List<Entrada> eliminarEntradasNoDisponibles(List<Entrada> entradasConseguidas) {
         return entradasConseguidas.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
