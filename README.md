@@ -80,3 +80,23 @@ No se que es mejor, si cada vez que se agrega una tarjeta se tenga que agregar u
 #### Compra de 2 entradas A 2 entradas B PertenenciaH recibe las 4
 
 <img src="src/diagrams/2EntradasA2EntradasBPertenencia.png" alt="">
+
+# Segundo ejercicio
+
+#### signiificado de las relaciones
+
+- La relacion entre epica y epica, epica e issue es una relacion de agregacion, de multiplicidad 0 o mas. Significa que
+  cada epica contiene una o mas epicas y/o issues y que si una Epica se elimina, el resto sigue existiendo.
+
+#### Diagrama de clases tentativo
+
+<img src="src/diagrams/DCEj2.png" alt="">
+
+- La epica pasa a ser un estado de issue (tal vez haya un nombre mas adecuado para esta clase)
+  se puede promover la issue de estado normal a estado epica
+- la relacion de composicion significa que si la issue se elimina, tambien su estado.
+- una issue ahora puede contener mas issues (de las que algunas puedeen tener estado epica)
+
+#### diagrama de secuencia de promocion a epica
+
+<img src="src/diagrams/SecuenciaPromocionEj2.png" alt="">

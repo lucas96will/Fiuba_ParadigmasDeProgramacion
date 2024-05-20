@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor main
+participant "issue: Issue" as issue
+participant "estado: EstadoIssueNormal" as estadoNormal
+participant "epica : EstadoIssueEpica" as epica
+
+
+main -> issue: promocionAEpica()
+issue -> estadoNormal : promocion()
+estadoNormal -> epica ** : <<create>
+estadoNormal --> issue : epica
+issue --> issue : miEstado = epica
+
+@enduml
