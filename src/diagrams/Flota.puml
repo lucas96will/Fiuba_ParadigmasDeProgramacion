@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+title flota con 3 naves nuevas se le pide el puntaje
+actor testCase
+participant "f:Flota" as f
+participant "c:Corbeta" as c
+participant "d:Destructor" as d
+participant "a:Acorazado" as a
+
+testCase -> f : puntaje()
+f -> c : puntaje()
+f <-- c : puntosCorbeta
+f -> d : puntaje()
+f <-- d : puntosDestructor
+f -> a : puntaje()
+f <-- a : puntosAcorazado
+
+f --> testCase: totalPuntos
+@enduml

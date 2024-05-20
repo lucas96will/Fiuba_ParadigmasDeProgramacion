@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title CorbetaAtaca2VecesSeObtieneElPuntaje
+
+actor testCase
+participant "c:Corbeta" as c
+participant "es:EscudoSimple" as es
+participant "m:Misil" as m
+participant "c2:Corbeta" as n
+participant "es2:EscudoSimple" as es2
+
+
+loop 2 veces
+testCase -> c: atacar(n)
+c -> n : recibirAtaque(m)
+n --> es2 : recibirAtaque(m)
+es2 -> m : realizarAtaque(puntos)
+m --> m : cantidad--
+m --> es2 : [puntos -= 10]
+es2 --> n : [sisDef = es2]
+end loop
+
+testCase -> c:puntaje()
+c -> m : puntaje()
+m --> c: puntosAtaque
+c -> es: puntaje()
+es --> c :puntosDefensa
+c --> testCase: puntosAtaque + puntosDefensa
+@enduml

@@ -1,67 +1,95 @@
-## Primer ejercicio de modelado
+## Ejercicio de modelado
 
-1 - (Peso %70) Ejercicio de modelado (se recomienda leer todo el ejercicio antes de comenzar). Se desea modelar parte de
-un sistema mediante el paradigma de objetos. Necesitamos construir una parte del modelo de la plataforma de venta de
-entradas que nos permita generar los tickets de ingresos para Taylor Swift. Las entradas disponibles:
+En un imperio intergaláctico existen distintos tipos de naves espaciales. El puntaje total de cada nave dependerá de con
+que tipo de sistema de ataque y defensa esté equipada la misma, el estado actual de ambos y será la suma de ambos
+sistemas.
 
-- Tipo A:
-    - Precio $ 600
-- Tipo B:
-    - Precio: $ 5000
-- Existen distintos tipos de medios de pagos que te las permiten adquirir, a saber:
-    - Tarjeta PertenenciaH, puede comprar cualquier tipo de entrada. No tiene límite de compra.
-    - Tarjeta Gold, puede comprar entradas de Tipo A. Tiene por límite de compra $1000.
-- Casos de uso:
-    1. Un comprador pide 2 entradas TipoB y paga con la tarjeta debería recibir dos entradas.
-    2. Un comprador pide 2 entradas TipoA y paga con la tarjeta Gold debería recibir una sola entrada.
-    3. Un comprador pide 2 entradas TipoB, 2 entradas TipoA con la tarjeta PertenenciaH debería recibir las 4 entradas.
-- Se pide:
-    - Diagrama de clases completo incluyendo todas las clases y abstracción por más que no se utilicen en los diagramas
-      de secuencia de los casos de uso.
-    - Diagrama de secuencia para cada uno de los casos de uso.
-    - Código de la prueba (no de la implementación que hace pasar la prueba) para cada uno de los casos de uso
+#### Características de una Corbeta:
+
+- Posee 3 misiles que suman 10 puntos cada uno. A medida que dispara se le van gastando. Si se queda sin misiles suma 0
+  puntos en ataque.
+- Posee un escudo simple, suma 20 puntos. A medida que recibe daños se le va restando los puntos. Por ejemplo: si una
+  corbeta nueva recibe un ataque de 1 misil, luego del ataque su escudo sumará 10 puntos.
+
+#### Características de un Destructor:
+
+- Posee 5 misiles. Cuando el destructor tiene los 5 misiles suma 10 puntos por cada uno + 20 puntos extras. Con 4
+  misiles o menos, solo suma una unidad por cada misil. Si se queda sin misiles suma 0 puntos en ataque
+- Posee un escudo Fenix que suma 50 puntos, pero al ser destruido, el mismo revive en forma de escudo simple sumando 30
+  puntos.
+
+#### Características de un Acorazado:
+
+- Posee un doble sistema de ataque:
+  - 10 bombas de neutrones. Suman 5 puntos cada una. A medida que dispara se le van gastando hasta quedarse sin bombas y
+    sumar 0.
+  - Torreta iónica: Suma 100 puntos al contar con las 10 bombas de neutrones, caso contrario resta 10 puntos por cada
+    bomba de neutrones gastada.
+- Posee un escudo iónico, que multiplica x 2 el puntaje de ataque que tenga la nave que lo contiene.
+
+#### Características de una Flota:
+
+- Posee un número ilimitado de naves mayor a cero.
+
+<b>NOTA 1</b>: El puntaje total puede ser positivo, cero o negativo dadas las circunstancias en algún momento para una
+nave.
+
+<b>NOTA 2</b>: En cada disparo se consume 1 misil / bomba de neutrones a la vez.
+
+<b>NOTA 3</b>: Al recibir ataques las naves van restando su puntaje de escudo. (Salvo el escudo iónico que no se ve
+afectado por ataques, siempre multiplica x 2 su puntaje de ataque)
+
+<b>NOTA 4</b>: Los puntajes no son estáticos, son dinámicos. Por ejemplo el puntaje de ataque va cambiando a medida que
+se gastan disparos. Lo mismo pasa para el puntaje de defensa, puede ir cambiando a medida que se reciben ataques.
+
+Los casos de uso son:
+
+1. Calcular el puntaje total de una Corbeta nueva luego de que dispara 2 misiles.
+2. Calcular el puntaje total de un Destructor nuevo que cuenta con 5 misiles y recibe 6 ataques de misiles. (El ataque
+   puede provenir de otro/s destructor/es y/o corbeta/s)
+3. Calcular el puntaje total de un flota con una Corbeta, un Destructor y un Acorazado nuevos.
+
+Se pide:
+
+1. Diagrama de clases (completo) que representen el modelo descrito.
+2. Diagrama de secuencia para cada uno de los casos de uso.
+3. Código de la prueba para cada uno de los casos de uso.
 
 #### IMPORTANTE
 
 En cada diagrama de secuencia mostrar la inicialización de los objetos involucrados
 
-## segundo ejercicio
-
-2 - (Peso %30) - Ejercicio conceptual (se recomienda leer todo el ejercicio antes de comenzar). El siguiente diagrama
-describe una porción de una herramienta de gestión de proyectos. Adicionalmente existe la promoción de un issue:
-significa convertir un issue a épica manteniendo el contenedor del issue.
-
-![img.png](src/diagrams/img.png)
-
-1. ¿Qué significa cada una de las relaciones?
-2. ¿Como actualizar y/o modificar el diagrama de clases para agregar la promoción de issues?
-3. ¿Cómo quedaría el diagrama de secuencia de una promoción de un issue?
-
 # Primer ejercicio
 
 ## Analizando el problema
 
+Hay muchas clases y varias cosas dando vuelta
+
 ### Entidades
 
-- plataforma -> se encarga de la compra de entradas
-- entrada
-    - entradaA
-    - entradaB
-- tarjeta
-    - gold
-    - pertenenciaH
+- Sistema de ataque
+  - Misil
+  - Bomba
+  - Torreta Ionica
+- Sistema de defensa
+  - EscudoSimple
+  - EscudoFenix
+  - EscudoIonico
+- Nave
+  - Corbeta
+  - Destructor
+  - Acorazado
+- Flota
+- Ademas el escudo fenix cuenta con un estado
+  - EstadoEscudo
+  - EstadoEscudoSimple
+  - EstadoEscudoFenix
 
 ### Diseño por contrato (estas dos prueba van a estar como casos de uso)
 
-Creo que no se pide lanzar excepcion si se trata de comprar entrada B con tarjeta gold
-
 ### Extras
 
-Se va a usar el patron de diseño visitor (double dispatch en diferentes jerarquias)
-
 ### Algunas decisiones de diseño
-
-No se que es mejor, si cada vez que se agrega una tarjeta se tenga que agregar un metodo en cada entrada o viceversa
 
 ### Diagrama de clases
 
@@ -69,34 +97,11 @@ No se que es mejor, si cada vez que se agrega una tarjeta se tenga que agregar u
 
 ### Diagrama de secuencia
 
-#### Compra de 2 entradas B con tarjeta PertenenciaH recibe las 2
+<img src="src/diagrams/acorazado-se_le_pide_el_puntaje_a_acorazado.png" alt="">
 
-<img src="src/diagrams/2EntradasBPertenenciaH.png" alt="">
+<img src="src/diagrams/CorbetaDispara2VecesPuntaje-CorbetaAtaca2VecesSeObtieneElPuntaje.png" alt="">
 
-#### Compra dee 2 entradas A con tarjeta Gold recibe solo 1
+<img src="src/diagrams/Flota-flota_con_3_naves_nuevas_se_le_pide_el_puntaje.png" alt="">
 
-<img src="src/diagrams/2EntradasAGold.png" alt="">
 
-#### Compra de 2 entradas A 2 entradas B PertenenciaH recibe las 4
 
-<img src="src/diagrams/2EntradasA2EntradasBPertenencia.png" alt="">
-
-# Segundo ejercicio
-
-#### signiificado de las relaciones
-
-- La relacion entre epica y epica, epica e issue es una relacion de agregacion, de multiplicidad 0 o mas. Significa que
-  cada epica contiene una o mas epicas y/o issues y que si una Epica se elimina, el resto sigue existiendo.
-
-#### Diagrama de clases tentativo
-
-<img src="src/diagrams/DCEj2.png" alt="">
-
-- La epica pasa a ser un estado de issue (tal vez haya un nombre mas adecuado para esta clase)
-  se puede promover la issue de estado normal a estado epica
-- la relacion de composicion significa que si la issue se elimina, tambien su estado.
-- una issue ahora puede contener mas issues (de las que algunas puedeen tener estado epica)
-
-#### diagrama de secuencia de promocion a epica
-
-<img src="src/diagrams/SecuenciaPromocionEj2.png" alt="">
