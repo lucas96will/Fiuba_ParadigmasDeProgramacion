@@ -83,8 +83,8 @@ Hay muchas clases y varias cosas dando vuelta
 - Ademas el escudo fenix cuenta con un estado
   - EstadoEscudo
   - EstadoEscudoSimple
-  - EstadoEscudoFenix
-
+  - EstadoEscudoFenix edit: elimine los estados de escudo, cada vez que se recibe un ataque se devuelve un sistema de
+    defensa.
 ### Diseño por contrato (estas dos prueba van a estar como casos de uso)
 
 ### Extras

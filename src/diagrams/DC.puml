@@ -1,52 +1,117 @@
 @startuml
-interface .Tarjeta {
-~ List<Entrada> comprar(List<Entrada>)
-~ void actualizarLimite(int)
+interface SistemaAtaque {
+~ realizarAtq(int): int
+~ puntaje(): int
 }
 
-class EntradaB {
-- int precio
-+ Entrada comprar(Gold)
-+ Entrada comprar(PertenenciaH)
-+ boolean equals(Object)
-}
-
-
-interface Entrada {
-~ Entrada comprar(Gold)
-~ Entrada comprar(PertenenciaH)
-}
-
-class Plataforma {
-+ List<Entrada> comprar(Tarjeta,List<Entrada>)
-}
-
-class EntradaA {
-- int precio
-+ Entrada comprar(Gold)
-+ Entrada comprar(PertenenciaH)
-+ boolean equals(Object)
+class EscudoIonico {
++ EscudoIonico(bomba: BombaNeutron, torreta: TorretaIonica)
++ recibirAtq(SistemaAtaque): SistemaDefensa
++ puntaje(): int
 }
 
 
-class Gold {
-- int limite
-+ List<Entrada> comprar(List<Entrada>)
-- List<Entrada> eliminarEntradasNoDisponibles(List<Entrada>)
-+ void actualizarLimite(int)
+interface Nave {
+~ atacar(Nave): void
+~ recibirAtq(SistemaAtaque): SistemaDefensa
+~ puntaje(): int
+}
+
+class TorretaIonica {
++ TorretaIonica(bomba: BombaNeutron)
++ realizarAtq(int): int
++ puntaje(): int
 }
 
 
-class PertenenciaH {
-+ List<Entrada> comprar(List<Entrada>)
-+ void actualizarLimite(int)
+class Corbeta {
++ Corbeta(sisAtq: SistemaAtaque, sisDef: SistemaDefensa)
++ atacar(Nave)
++ recibirAtq(SistemaAtaque)
++ puntaje(): int
 }
 
-Plataforma ..> Tarjeta
-Plataforma ..> Entrada
-Entrada . Tarjeta
-Entrada <|.. EntradaB
-Entrada <|.. EntradaA
-Tarjeta <|.. Gold
-Tarjeta <|.. PertenenciaH
+
+class Destructor {
++Destructor(sisAtq: SistemaAtaque, sisDef: SistemaDefensa)
++ atacar(Nave)
++ recibirAtq(SistemaAtaque)
++ puntaje(): int
+}
+
+
+class EscudoSimple {
+- int puntos
++ EscudoSimple(puntos: int)
++ recibirAtq(SistemaAtaque): SistemaDefensa
++ puntaje(): int
+}
+
+
+
+class EscudoFenix {
+- puntos: int
++ EscudoFenix(puntos: int)
++ recibirAtq(SistemaAtaque): SistemaDefensa
++ puntaje(): int
+}
+
+
+class Misil {
+- cantidad: int
++ Misil(cantidad: int)
++ realizarAtq(int): int
++ puntaje(): int
+}
+
+
+class Flota {
++ Flota(naves: List<Nave>)
++ puntaje(): int
+}
+
+
+class BombaNeutron {
+- cantidad: int
+- cantidadGastada: int
++ BombaNeutron(cantidad: int)
++ realizarAtq(int): int
++ puntaje(): int
++ calcularPuntosTorreta(): int
+}
+
+
+class Acorazado {
++ Acorazado(sisAtq: SistemaAtaque, sisAtq: SistemaAtaque, sisDef: SistemaDefensa)
++ atacar(Nave)
++ recibirAtq(SistemaAtaque)
++ puntaje(): int
+}
+
+
+
+
+interface SistemaDefensa {
+~ recibirAtq(SistemaAtaque)
+~ puntaje(): int
+}
+
+
+
+SistemaDefensa <|.. EscudoIonico
+SistemaAtaque <|.. TorretaIonica
+Nave <|.. Corbeta
+Nave <|.. Destructor
+SistemaDefensa <|.. EscudoSimple
+SistemaDefensa <|.. EscudoFenix
+SistemaAtaque <|.. Misil
+SistemaAtaque <|.. BombaNeutron
+Nave <|.. Acorazado
+
+Flota "1" o-- "*"Nave
+Nave "1" --> "1..*" SistemaAtaque
+Nave "1" --> "1" SistemaDefensa
+
+EscudoFenix ..> EscudoSimple
+
 @enduml
