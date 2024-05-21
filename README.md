@@ -50,11 +50,26 @@ La constructora quiere conocer el remanente de materiales en sus almacenes luego
 # Primer ejercicio
 
 ## Analizando el problema
-
+Nos piden solamente una manera de verificar que los materiales del almacenamiento se gasten y sean correctos
 ### Entidades
+
+- Almacen
+- Material
+  - Cemento
+  - Canio
+  - Pintura
+- Construccion
+  - Edificio
+  - Vivienda
+- Complejo
+- EstadoConstruccion
+  - Construido
+  - NoConstruido
 
 ### Diseño por contrato (estas dos prueba van a estar como casos de uso)
 
+- no nos piden verificar si esta construido, por lo que no hace falta dar algunas excepciones. El tiempo no alcanza para
+  hacer las excepciones en los diagramas de clase y secuencia
 ### Extras
 
 ### Algunas decisiones de diseño
