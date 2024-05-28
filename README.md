@@ -45,6 +45,7 @@ objetos y mensajes) el caso completo para los siguientes escenarios:
 
 ### Diagrama de clases
 
+<img src="src/diagrams/DiagramaClases.png">
 
 ### Diagrama de secuencia
 
