@@ -1,0 +1,116 @@
+@startuml
+class Gimnasio {
++ reservar(a: Actividad, s: Socio)
++ tieneReserva(r: Reserva): boolean
++ usar(a: Actividad, s: Socio)
+}
+
+
+class FanDeLasClases {
++ usar(a: Actividad, p: Plan, s: Socio)
++ pagar(p: Plan, mp: MedioPago)
+}
+
+abstract class Actividad {
+- int usosMax
++ Actividad(usosMax: int)
++ equals(obj: Object): boolean
++ void usar(a: Actividad, s:Socio)
+}
+
+
+class Reserva {
++ Reserva(a: Actividad, s: Socio)
++ equals(obj: Object): boolean
+}
+
+
+class SalaMusculacion {
+}
+
+class MedioPago {
+- int saldo
++ MedioPago(saldo: int)
++ void pagar(precio: int)
+}
+
+
+class UsosExcedidosError {
+}
+
+class Sub {
+- int dias
+- int diasRestantes
++ Sub(dias: int)
++ usar(a: Actividad, p: Plan, s: Socio)
++ pagar(p: Plan, mp: MedioPago)
+}
+
+
+class Grupales {
+}
+
+class AgendaAlgo {
+- {static} instancia: AgendaAlgo
+- usosMusculacion :List<Socio>
+- usosClasesGrupales: List<Socio>
+- AgendaAlgo()
++ {static} getInstance(): AgendaAlgo
++ vecesMusculacion(s: Socio): int
++ aumentarUsosMusculacion(s: Socio): int
+}
+
+
+class NoTanBasico {
+
++ usar(a: Actividad, p: Plan, s: Socio)
++ pagar(p: Plan, mp: MedioPago)
+}
+
+class Basico {
+
++ usar(a: Actividad, p: Plan, s: Socio)
++ pagar(p: Plan, mp: MedioPago)
+}
+
+
+class Libre {
+
++ usar(a: Actividad, p: Plan, s: Socio)
++ pagar(p: Plan, mp: MedioPago)
+}
+abstract class Plan {
+
++ Plan(maxMusculacion: int, maxGrupal: int)
++ {abstract}void usar(Actividad,Socio)
++ {abstract}void pagar(MedioPago,int)
+}
+
+
+class Socio {
+- String nombre
++ Socio(nombre: String, p: Plan, su: Sub)
++ equals(obj: Object): boolean
++ usar(a: Actividad)
+}
+
+
+Plan <|-- FanDeLasClases
+Actividad <|-- SalaMusculacion
+Actividad <|-- Grupales
+Plan <|-- NoTanBasico
+Plan <|-- Libre
+Plan <|-- Basico
+
+Plan *-- "*" Actividad
+Gimnasio *-- "*" Reserva
+Reserva o-- "1" Actividad
+Actividad ..> UsosExcedidosError
+Socio o-- "1" Sub
+Socio o-- "1" Plan
+Actividad ..> AgendaAlgo
+Plan ..> MedioPago
+Sub ..> MedioPago
+Gimnasio .> Actividad
+Gimnasio .> Socio
+@enduml
