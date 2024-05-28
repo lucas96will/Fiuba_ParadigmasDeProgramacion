@@ -105,12 +105,14 @@ Plan <|-- Basico
 Plan *-- "*" Actividad
 Gimnasio *-- "*" Reserva
 Reserva o-- "1" Actividad
+Reserva o-left "1" Socio
 Actividad ..> UsosExcedidosError
 Socio o-- "1" Sub
 Socio o-- "1" Plan
 Actividad ..> AgendaAlgo
 Plan ..> MedioPago
 Sub ..> MedioPago
-Gimnasio .> Actividad
+Sub .> Plan
+
 Gimnasio .> Socio
 @enduml
